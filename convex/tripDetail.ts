@@ -17,24 +17,31 @@ export const CreateTripDetail=mutation({
   }
 
 })
-export const GetTripById = query({
+export const GetUserTrips = query({
   args: {
     uid: v.id("UserTable"),
-    tripid:v.string()
   },
   handler: async (ctx, args) => {
     const result = await ctx.db
       .query("TripDetailTable")
-  .filter((q) =>
-    q.and(
-      q.eq(q.field("uid"), args.uid),
-      q.eq(q.field("tripid"), args.tripid)
-    )
-  )
+      .filter((q) => q.eq(q.field("uid"), args.uid))
       .collect();
 
-    return result[0];
+    return result;
   },
 });
 
+export const GetTripById = query({
+  args: {
+    tripid: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const result = await ctx.db
+      .query("TripDetailTable")
+      .filter((q) => q.eq(q.field("tripId"), args.tripid))
+      .first();
+
+    return result;
+  },
+});
  
