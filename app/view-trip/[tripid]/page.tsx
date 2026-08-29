@@ -1,3 +1,4 @@
+"use client";
 import { useTripDetail, useUserDetail } from '@/app/provider';
 import { api } from '@/convex/_generated/api';
 import { useConvex } from 'convex/react';
